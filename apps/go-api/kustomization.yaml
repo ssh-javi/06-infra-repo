@@ -1,11 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
 resources:
   - deployment.yaml
   - service.yaml # 👈 Sumamos el servicio aquí
-
 images:
   - name: index.docker.io/sshjavi/go-devsecops-api
     newName: index.docker.io/sshjavi/go-devsecops-api
-    newTag: latest
+    newTag: 48c8983fc145a45a7fcaf7054572e9d2e416f2ee
