@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-api-deployment
+  namespace: argo-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-api
+  template:
+    metadata:
+      labels:
+        app: go-api
+      # 📊 ANOTACIONES CRÍTICAS DE SRE: Prometheus lee esto para raspar las métricas
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+      - name: go-api
+        image: index.docker.io/sshjavi/go-devsecops-api:latest # El pipeline cambiará este tag
+        ports:
+        - containerPort: 8080
